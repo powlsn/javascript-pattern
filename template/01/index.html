@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Schablonenmethode 01</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+  class PaperTemplate {
+    parentPrint() {
+      document.write('Print A4 <br>')
+    }
+  }
+
+  class ColorTemplate extends PaperTemplate {
+    colorPrint() {
+      super.parentPrint()
+      document.write('Set Color');
+    }
+  }
+
+  const template = new ColorTemplate();
+  template.colorPrint();
+</script>
+
+</html>

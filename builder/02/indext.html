@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Factory</title>
+  <style>
+    #dialog {
+      width: 300px;
+      height: 60px;
+      background-color: #f4fef8;
+      border: 1px solid #cccccc;
+      text-align: center;
+      padding: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <input type="button" id="show" value="Show" />
+  <input type="button" id="confirm" value="Confirm" />
+</body>
+
+<script type="module">
+  import { Builder } from './builder.js';
+  import { Button } from './button.js';
+
+  function showMessageDialog() {
+    const builder = new Builder();
+    builder.setMessage("Enjoy the ride");
+    builder.addButton(new Button("close", "Close"));
+    const dialog = builder.create();
+    dialog.show();
+  }
+
+  function showConfirmDialog() {
+    const builder = new Builder();
+    builder.setMessage("good enough");
+    builder.addButton(new Button('ok', 'Ok'));
+    builder.addButton(new Button('close', 'Close'));
+    const dialog = builder.create();
+    dialog.show();
+  }
+
+  const showBtn = document.getElementById('show');
+  const confirmBtn = document.getElementById('confirm');
+  showBtn.addEventListener('click', () => showMessageDialog());
+  confirmBtn.addEventListener('click', () => showConfirmDialog());
+  // document.querySelectorAll('input[name=shape]').forEach(element => {
+  //   element.addEventListener('click', () => create(element));
+  // })
+</script>
+
+</html>

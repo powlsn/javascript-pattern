@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dialog</title>
+  <style>
+    #login {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #ccc;
+      background-color: #fff0f3;
+      text-align: center;
+      padding: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <input type="button" value="Login" onClick="LogIn()" />
+
+  <template id="form">
+    Username: <input type="text" id="username">
+    Password: <input type="password" id="password">
+    <input type="button" value="Submit">
+  </template>
+</body>
+<script>
+  class Dialog {
+    static instance = null;
+
+    static showDialog() {
+      if (Dialog.instance === null) {
+        const dialogDiv = document.createElement('div');
+        dialogDiv.setAttribute('id', 'login');
+        const template = document.getElementById('form');
+        const form = template.content.cloneNode(true);
+        dialogDiv.appendChild(form);
+        document.body.appendChild(dialogDiv);
+        Dialog.instance = new Dialog();
+      }
+      return Dialog.instance;
+    }
+  }
+
+  function LogIn() {
+    Dialog.showDialog();
+  }
+</script>
+
+</html>

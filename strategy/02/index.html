@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Strategy Case Pattern</title>
+
+</head>
+
+<body>
+  <h1>Strategie Fall</h1>
+  <div style="margin: 5px 0;">
+    <input id="mastercard" type="radio" name="card" value="MasterCard" />
+    <img src="./images/mastercard.jpg" alt="mastercard">
+    <input id="visacard" type="radio" name="card" value="VisaCard" />
+    <img src="./images/visacard.jpg" alt="visacard">
+    <input id="paypal" type="radio" name="card" value="Paypal" />
+    <img src="./images/paypal.jpg" alt="paypal">
+  </div>
+  <span id="result"></span>
+</body>
+
+<script type="module">
+  import { PayManager, PayPal, VisaCard, MasterCard } from './strategy.js';
+  const mastercard = document.getElementById('mastercard');
+  mastercard.onclick = () => testPay(mastercard.value);
+
+  const visacard = document.getElementById('visacard');
+  visacard.onclick = () => testPay(visacard.value);
+
+  const paypal = document.getElementById('paypal');
+  paypal.onclick = () => testPay(paypal.value);
+
+  function testPay(value) {
+    const resultElement = document.getElementById('result');
+    resultElement.innerHTML = managePayment(value);
+  }
+
+  function managePayment(value) {
+    const mastercard = new PayManager(new MasterCard());
+    const visacard = new PayManager(new VisaCard());
+    const paypal = new PayManager(new PayPal());
+
+    return {
+      MasterCard: mastercard.pay(100),
+      VisaCard: visacard.pay(100),
+      Paypal: paypal.pay(100),
+    }[value] ?? null
+  }
+
+
+</script>
+
+
+</html>

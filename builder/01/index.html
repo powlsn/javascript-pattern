@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Builder 01</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+  class Car {
+    constructor() {
+      this.head = ''
+      this.body = ''
+      this.wheel = ''
+    }
+
+    getHead() {
+      return this.head
+    }
+    getBody() {
+      return this.body
+    }
+    getWheel() {
+      return this.wheel
+    }
+    setHead(head) {
+      this.head = head
+    }
+    setBody(body) {
+      this.body = body
+    }
+    setWheel(wheel) {
+      this.wheel = wheel
+    }
+  }
+
+  class Builder {
+    buildHead() { }
+    buildBody() { }
+    buildWheel() { }
+    buildPart() { }
+  }
+
+  class ConcreteBuilder extends Builder {
+    constructor() {
+      super()
+      this.car = new Car();
+    }
+
+    buildHead() {
+      this.car.setHead("Car head construction completed")
+    }
+    buildBody() {
+      this.car.setBody("Car body construction completed")
+    }
+    buildWheel() {
+      this.car.setWheel("Car Wheel construction completed")
+    }
+    buildPart() {
+      return this.car
+    }
+  }
+
+  class Director {
+    static construct(builder) {
+      builder.buildHead();
+      builder.buildBody();
+      builder.buildWheel()
+      return builder.buildPart();
+    }
+  }
+
+  const car = Director.construct(new ConcreteBuilder())
+  document.write(`${car.getHead()} <br>`);
+  document.write(`${car.getBody()} <br>`);
+  document.write(`${car.getWheel()} <br>`);
+</script>
+
+</html>

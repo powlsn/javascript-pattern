@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Factory</title>
+</head>
+
+<body>
+  <input type="radio" name="fly" value=1 onclick="create(this)"> Banshee
+  <input type="radio" name="fly" value=2 onclick="create(this)"> B747fly
+  <input type="radio" name="fly" value=3 onclick="create(this)"> A380fly
+  <br>
+  <br>
+  <span id="result"></span>
+</body>
+<script type="text/javascript">
+  class Fly {
+    shoot() { }
+  }
+
+  class Banshee extends Fly {
+    shoot() {
+      document.getElementById('result').innerHTML = 'Banshee fire the laser';
+    }
+  }
+
+  class B747fly extends Fly {
+    shoot() {
+      document.getElementById('result').innerHTML = 'B747 fire the missle';
+    }
+  }
+
+  class A380fly extends Fly {
+    shoot() {
+      document.getElementById('result').innerHTML = 'A380 fire the trigeminal shot';
+    }
+  }
+
+  class FlyFactory {
+    static create(type) {
+      return {
+        1: new Banshee(),
+        2: new B747fly(),
+        3: new A380fly()
+      }[type] ?? null;
+    }
+  }
+
+  function create(obj) {
+    const fly = FlyFactory.create(obj.value);
+    fly.shoot();
+  }
+</script>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Schablonenmethode 01</title>
+  <style>
+    #myCanvas {
+      border: 1px solid #c3c3c3;
+    }
+
+  </style>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="250" height="300"></canvas>
+</body>
+
+<script type="text/javascript">
+  class Sprite {
+    constructor() {
+      this.x = 0;
+      this.y = 0;
+      this.image = null;
+    }
+
+    draw(context) {
+      context.drawImage(this.image, this.x, this.y);
+    }
+    getX() {
+      return this.x;
+    }
+    getY() {
+      return this.y;
+    }
+    getImage() {
+      return this.image;
+    }
+    setX(x) {
+      this.x = x;
+    }
+    setY(y) {
+      this.y = y;
+    }
+    setImage(image) {
+      this.image = image
+    }
+  }
+
+  class MyPlane extends Sprite { }
+
+  class EnemyPlane extends Sprite { }
+
+  function create() {
+    const canvas = document.getElementById('myCanvas');
+    const context = canvas.getContext('2d');
+
+    const playerPlane = new MyPlane();
+    playerPlane.setX(110);
+    playerPlane.setY(250);
+    const playerImage = new Image();
+    playerImage.src = './images/player.png';
+    playerPlane.setImage(playerImage);
+    playerImage.onload = () => playerPlane.draw(context);
+
+    const enemyPlane = new EnemyPlane();
+    enemyPlane.setX(110);
+    enemyPlane.setY(50);
+    const enemyImage = new Image();
+    enemyImage.src = './images/enemy.png';
+    enemyPlane.setImage(enemyImage);
+    enemyImage.onload = () => enemyPlane.draw(context);
+  }
+
+  window.onload = () => create();
+</script>
+
+</html>

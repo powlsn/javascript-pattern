@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Factory</title>
+  <style>
+    #myCanvas {
+      border: 1px solid #c3c3c3;
+    }
+
+  </style>
+</head>
+
+<body>
+  <input type="radio" name="shape" id="rectangle" value="Rectangle" /> Rectangle
+  <input type="radio" name="shape" id="square" value="Square" /> Square
+  <input type="radio" name="shape" id="round" value="Round" /> Round
+  <br>
+  <br>
+  <canvas id="myCanvas" width="500" height="200"></canvas>
+</body>
+
+<script type="module">
+  import { ShapeFactory } from './shape-factory.js';
+
+  export function create(obj) {
+    const shape = ShapeFactory.create(obj.value);
+    const canvas = document.getElementById('myCanvas');
+    const context = canvas.getContext("2d");
+    shape.draw(context);
+  }
+
+  document.querySelectorAll('input[name=shape]').forEach(element => {
+    element.addEventListener('click', () => create(element));
+  })
+</script>
+
+</html>

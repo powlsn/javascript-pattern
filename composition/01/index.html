@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Composition</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <template id="template">
+    <ul></ul>
+  </template>
+</body>
+<script type="module">
+  import Root from './composition.js';
+
+  const app = document.getElementById('app');
+  const template = document.getElementById('template');
+
+  const item = document.createElement('li');
+
+  const firstLevel = template.content.firstElementChild.cloneNode(true);
+
+  item.innerText = Root.getName();
+  firstLevel.appendChild(item);
+  app.appendChild(firstLevel);
+
+  const kontinents = Root.getChildNodes();
+  firstLevel.appendChild(appendNodes(kontinents));
+
+  function appendNodes(arr) {
+    const ul = template.content.firstElementChild.cloneNode(true);
+
+    arr.forEach(element => {
+      const newItem = document.createElement('li');
+      newItem.innerText = element.getName();
+      ul.appendChild(newItem);
+
+      if (element.hasChildNodes()) {
+        const subs = appendNodes(element.getChildNodes());
+        ul.appendChild(subs);
+      }
+    });
+    return ul;
+  }
+</script>
+
+</html>
