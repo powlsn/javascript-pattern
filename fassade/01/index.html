@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Adapter</title>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Light {
+    flash() {
+      document.write("Flashing color light <br>")
+    }
+  }
+  class Music {
+    play() {
+      document.write("Playing techno music <br>")
+    }
+  }
+  class Video {
+    show() {
+      document.write("Video stream display <br>")
+    }
+  }
+
+  class Fassade {
+    constructor() {
+      this.light = new Light();
+      this.music = new Music();
+      this.video = new Video();
+    }
+
+    sing() {
+      document.write("Start singing <br>");
+      this.light.flash();
+      this.music.play();
+    }
+
+    dance() {
+      document.write("Start dancing <br>");
+      this.light.flash();
+      this.music.play();
+      this.video.show();
+    }
+
+    act() {
+      document.write("Start acting <br>");
+      this.light.flash();
+      this.video.show();
+    }
+  }
+  const fassade = new Fassade();
+  fassade.sing();
+  document.write('<br> --- <br>');
+  fassade.dance();
+  document.write('<br> --- <br>');
+  fassade.act();
+</script>
+
+</html>

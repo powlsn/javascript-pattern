@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Adapter</title>
+</head>
+
+<body>
+  <form id="form1" method="post">
+    <span id="message" style="color: red"></span>
+    <br>
+    Username <input type="text" id="username" value="">
+    Age <input type="text" id="age" value="">
+    <br>
+    <input type="button" value="Register" id="registerBtn">
+  </form>
+</body>
+
+<script type="module">
+  import { Facade } from './util.js';
+
+  function register() {
+    const facade = new Facade();
+
+    const username = document.getElementById('username').value;
+    const age = document.getElementById('age').value;
+    const messageHtml = document.getElementById('message');
+
+    if (!facade.checkUsername(username)) {
+      messageHtml.innerHTML = 'username must be char, number and start with char!';
+      return;
+    }
+
+    if (!facade.checkAge(age)) {
+      messageHtml.innerHTML = 'age must be unsign integer and length between [1, 3]';
+      return;
+    }
+
+    messageHtml.innerHTML = 'Register successfully!';
+  }
+
+  document.getElementById('registerBtn').addEventListener('click', () => register());
+</script>
+
+</html>
