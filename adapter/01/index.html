@@ -10,6 +10,31 @@
 </body>
 
 <script type="text/javascript">
+  class Plug {
+    recharge() { }
+  }
+
+  class HighVoltagePlug extends Plug {
+    recharge() {
+      return 100;
+    }
+  }
+
+  class AdapterPlug extends Plug {
+    recharge() {
+      const highPlug = new HighVoltagePlug();
+      const highVoltage = highPlug.recharge();
+      const lowVoltage = highVoltage - 64;
+      return lowVoltage;
+    }
+  }
+
+  const plugHigh = new HighVoltagePlug();
+  document.write(`${plugHigh.recharge()} too much voltage <br>`);
+
+  const adapterPlug = new AdapterPlug();
+  document.write(`Adapter into ${adapterPlug.recharge()} voltage`);
+
 
 </script>
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Adapter</title>
+  <style>
+    #popup_menu {
+      width: 300px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    li {
+      list-style: none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <input type="button" id="list-menu" value="List Menu">
+  <input type="button" id="image-menu" value="Image Menu">
+</body>
+
+<script type="module">
+  import { ListView } from './list-view.js';
+  import { ListAdapter } from './list-adapter.js';
+  import { ImageAdapter } from './image-adapter.js';
+
+  const list = [
+    'Happy Coding',
+    'Happy Hacking',
+    'Happy Family',
+    'Happy Wife',
+    'Happy Life',
+  ];
+
+  function popupListMenu() {
+    const adapter = new ListAdapter(list);
+    ListView.popupMenu(adapter);
+  }
+
+  function popupListImageMenu() {
+    const adapter = new ImageAdapter(list);
+    ListView.popupMenu(adapter);
+  }
+
+  const popupListButton = document.getElementById('list-menu');
+  popupListButton.onclick = () => popupListMenu();
+
+  const popupImageButton = document.getElementById('image-menu');
+  popupImageButton.onclick = () => popupListImageMenu();
+</script>
+
+</html>
