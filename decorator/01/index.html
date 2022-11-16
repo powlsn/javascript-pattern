@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Decorator</title>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Person {
+    show() { }
+  }
+
+  class Man extends Person {
+    show() {
+      document.write('I am a man <br>');
+    }
+  }
+
+  class Decorator {
+    constructor(person) {
+      this.person = person;
+    }
+
+    show() { }
+  }
+
+  class ManagerDecorator extends Decorator {
+    constructor(person) {
+      super(person);
+    }
+
+    show() {
+      this.person.show();
+      document.write('I am still a manager <br>');
+    }
+  }
+
+  class ActorDecorator extends Decorator {
+    constructor(person) {
+      super(person)
+    }
+
+    show() {
+      this.person.show();
+      document.write('I am still an international actor <br>');
+    }
+  }
+
+  let person = new Man();
+  person.show();
+  document.write('<br> --- <br>');
+  person = new ManagerDecorator(person);
+  person.show();
+  document.write('<br> --- <br>');
+  person = new ActorDecorator(person);
+  person.show();
+</script>
+
+</html>
