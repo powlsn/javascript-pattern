@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Prototype 01</title>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Cat {
+    constructor(name) {
+      this.name = name;
+    }
+    getName() { return this.name }
+    setName(name) { this.name = name }
+  }
+
+  class Person {
+    constructor() {
+      this.name = '';
+      this.age = 0;
+      this.cat = null;
+      this.hobby = null;
+    }
+
+    getName() {
+      return this.name
+    }
+    setName(name) {
+      this.name = name
+    }
+
+    getAge() {
+      return this.age
+    }
+    setAge(age) {
+      this.age = age
+    }
+
+    getHobby() {
+      return this.hobby
+    }
+    setHobby(hobby) {
+      this.hobby = hobby
+    }
+
+    getCat() {
+      return this.cat
+    }
+    setCat(cat) {
+      this.cat = cat
+    }
+  }
+
+  function shallowClone(obj) {
+    const originProto = Object.getPrototypeOf(obj);
+    return Object.assign(Object.create(originProto), obj);
+  }
+
+  const person1 = new Person();
+  person1.setName('Ace');
+  person1.setAge(20);
+  person1.setHobby(['Tennis', 'Bike']);
+  person1.setCat(new Cat('Blacky'));
+
+  document.write("------- Original Person ------- <br>");
+  document.write(`${person1.getName()} <br>`);
+  document.write(`${person1.getAge()} <br>`);
+  document.write(`${person1.getHobby()} <br>`);
+  document.write(`${person1.getCat().getName()} <br>`);
+
+  const shallowClonePerson = shallowClone(person1);
+  document.write("------- Shallow Clone Person ------- <br>");
+  document.write(`${shallowClonePerson.getName()} <br>`);
+  document.write(`${shallowClonePerson.getAge()} <br>`);
+  document.write(`${shallowClonePerson.getHobby()} <br>`);
+  document.write(`${shallowClonePerson.getCat().getName()} <br>`);
+
+  person1.setName('beta');
+  person1.setAge(24);
+  person1.getHobby().push('Reading');
+  person1.getCat().setName('Whity');
+  document.write("------- Original Changed Person ------- <br>");
+  document.write(`${person1.getName()} <br>`);
+  document.write(`${person1.getAge()} <br>`);
+  document.write(`${person1.getHobby()} <br>`);
+  document.write(`${person1.getCat().getName()} <br>`);
+
+  document.write("------- Shallow Clone Person ------- <br>");
+  document.write(`${shallowClonePerson.getName()} <br>`);
+  document.write(`${shallowClonePerson.getAge()} <br>`);
+  document.write(`${shallowClonePerson.getHobby()} <br>`);
+  document.write(`${shallowClonePerson.getCat().getName()}`);
+</script>
+
+</html>

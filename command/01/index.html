@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Command 01</title>
+  <style>
+  </style>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Button {
+    constructor(name) {
+      this.name = name;
+      this.command = null;
+    }
+
+    addEventListener(command) {
+      this.command = command;
+    }
+
+    onClick() {
+      this.command();
+    }
+  }
+
+  class Mouse {
+    click(button) {
+      button.onClick();
+    }
+  }
+
+  const okCommand = () => document.write('Ok Command is clicked <br>');
+  const cancelCommand = () => document.write('Cancel button is clicked <br>');
+
+  const okButton = new Button('Ok');
+  okButton.addEventListener(okCommand);
+  const cancelButton = new Button('Cancel');
+  cancelButton.addEventListener(cancelCommand);
+
+  const mouse = new Mouse();
+  mouse.click(okButton);
+  mouse.click(cancelButton);
+</script>
+
+</html>

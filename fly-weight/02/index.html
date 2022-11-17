@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fly Weight 02</title>
+  <style>
+    #product_table {
+      border: 1px solid #ddd;
+      background-color: #eee;
+      width: 620px;
+      font-size: 16px;
+    }
+
+    #product input {
+      width: 120px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <table id="product_table">
+    <tr>
+      <td>Product</td>
+      <td>Price</td>
+      <td>Quantity</td>
+    </tr>
+  </table>
+
+</body>
+
+<script type="text/javascript">
+  let cartJson = null;
+  if (localStorage.getItem('cart') === null) {
+    cartJson = [
+      { "product": "Learning JavaScript", "price": 3.99, "quantity": 1 },
+      { "product": "Learning Python", "price": 3.99, "quantity": 1 },
+      { "product": "Learning C#", "price": 3.99, "quantity": 1 },
+    ]
+    localStorage.setItem('cart', JSON.stringify(cartJson));
+  } else {
+    cartJson = JSON.parse(localStorage.getItem('cart'));
+  }
+
+  const table = document.getElementById('product_table');
+
+  cartJson.forEach(element => {
+    const tr = table.insertRow();
+    const product = tr.insertCell();
+    const price = tr.insertCell();
+    const quantity = tr.insertCell();
+
+    product.innerHTML = element.product;
+    price.innerHTML = element.price;
+    quantity.innerHTML = element.quantity;
+  });
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Command 02</title>
+  <style>
+    #menu {
+      border: 1px solid #ddd;
+      background-color: #eee;
+      width: 400px;
+      font-size: 16px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="menu">
+    <ul>
+      <li>Life Python hacking</li>
+      <li>get stuck Backend Development</li>
+      <li>Behind the scene</li>
+      <li>Ben Hur</li>
+      <li>U2</li>
+    </ul>
+    <center>
+      <input type="button" value="Close" id="closeButton">
+    </center>
+  </div>
+</body>
+
+<script type="text/javascript">
+  document.getElementById('closeButton').addEventListener('click', closeCommand);
+
+  function closeCommand(event) {
+    document.getElementById('menu').style.display = 'none';
+  }
+</script>
+
+</html>

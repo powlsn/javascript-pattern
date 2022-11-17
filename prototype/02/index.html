@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Prototype 02</title>
+  <style>
+    #contact {
+      border: 1px solid #ddd;
+      background-color: #eee;
+      width: 640px;
+      font-size: 16px;
+    }
+
+    #contact input {
+      width: 120px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <input type="button" value="Add Contact" onclick="addContact()" />
+  <div id="contact_list">
+    <div id="contact">
+      Name: <input type="text"> Telephone: <input type="text" /> Email: <input type="email" />
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript">
+  function addContact() {
+    const contactObj = document.getElementById('contact');
+    const newContact = contactObj.cloneNode(true);
+    document.getElementById('contact_list').appendChild(newContact);
+  }
+</script>
+
+</html>

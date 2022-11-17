@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Iterator 02</title>
+  <style>
+    #table {
+      border: 1px solid #ddd;
+      background-color: #f7fefe;
+      width: 620px;
+      font-size: 16px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <table id="table">
+    <tr>
+      <td>Title</td>
+      <td>Date</td>
+    </tr>
+  </table>
+</body>
+
+<script type="text/javascript">
+  const books = [
+    { 'title': 'Easy Learning JavaScript', 'date': '09.09.2020' },
+    { 'title': 'Easy Learning Python 3', 'date': '05.04.2020' },
+    { 'title': 'Easy Learning C#', 'date': '04.10.2021' },
+  ];
+
+  const table = document.getElementById('table');
+
+  books.forEach(item => {
+    const tr = table.insertRow();
+    const title = tr.insertCell();
+    const date = tr.insertCell();
+
+    title.innerHTML = item.title;
+    date.innerHTML = item.date;
+  })
+
+
+</script>
+
+</html>

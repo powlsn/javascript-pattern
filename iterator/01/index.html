@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Iterator 01</title>
+  <style>
+  </style>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Iterator {
+    constructor(list) {
+      this.list = list;
+      this.index = 0;
+    }
+
+    hasNext() {
+      return this.index < this.list.length;
+    }
+
+    next() {
+      let element = null;
+      if (this.index < this.list.length) {
+        element = this.list[this.index]
+        this.index += 1;
+      }
+      return element;
+    }
+  }
+
+  class List {
+    constructor() {
+      this.size = 0;
+      this.element = [];
+    }
+
+    add(element) {
+      this.element.push(element);
+      this.size += 1;
+    }
+
+    get(index) {
+      return this.element[index];
+    }
+
+    size() {
+      return this.size;
+    }
+
+    iterator() {
+      return new Iterator(this.element);
+    }
+  }
+
+  const list = new List();
+  list.add('Uni Bonn');
+  list.add('Markt Str');
+  list.add('Polo Alto');
+  list.add('Cuptino');
+
+  const iterator = list.iterator();
+  while (iterator.hasNext()) {
+    obj = iterator.next();
+    document.write(`${obj} -> `);
+  }
+
+</script>
+
+</html>

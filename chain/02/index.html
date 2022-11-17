@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Chain 02</title>
+  <style>
+    #level_1_box {
+      border: 1px solid red;
+      background-color: red;
+      width: 300px;
+      height: 300px;
+    }
+
+    #level_2_box {
+      border: 1px solid green;
+      background-color: green;
+      width: 200px;
+      height: 200px;
+    }
+
+    #level_3_box {
+      border: 1px solid blue;
+      background-color: blue;
+      width: 100px;
+      height: 100px;
+    }
+
+  </style>
+</head>
+
+<body id="body">
+  <div id="level_1_box">
+    <div id="level_2_box">
+      <div id="level_3_box">level 3 box</div>
+    </div>
+  </div>
+  <br>
+  <span id="result"></span>
+</body>
+
+<script type="text/javascript">
+  window.onload = () => {
+    document.getElementById('body').addEventListener('click', eventHandler);
+    document.getElementById('level_1_box').addEventListener('click', eventHandler);
+    document.getElementById('level_2_box').addEventListener('click', eventHandler);
+    document.getElementById('level_3_box').addEventListener('click', eventHandler);
+  }
+
+  function eventHandler(event) {
+    document.getElementById('result').innerHTML += event.currentTarget.id + ' -> ';
+  }
+</script>
+
+</html>

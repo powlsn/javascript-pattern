@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bridge 02</title>
+  <style>
+    #canvas {
+      border: 1px solid #c3c3c3;
+    }
+
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="300" height="300"></canvas>
+</body>
+
+<script type="text/javascript">
+  class Fly {
+    constructor() {
+      this.x = 0;
+      this.y = 0;
+      this.image = null;
+      this.bullet = null;
+    }
+
+    draw(context) {
+      context.drawImage(this.image, this.x, this.y);
+      this.bullet.draw(context);
+    }
+
+    loadBullet(bullet) {
+      this.bullet = bullet;
+    }
+
+    move(x, y) {
+      this.x += x;
+      this.y += y;
+    }
+
+    getX() {
+      return this.x;
+    }
+    setX(x) { this.x = x }
+
+    getY() {
+      return this.y;
+    }
+    setY(y) { this.y = y }
+
+    getImage() {
+      return this.image;
+    }
+    setImage(image) { this.image = image }
+  }
+
+  class BlueFly extends Fly { }
+  class RedFly extends Fly { }
+
+  class Bullet {
+    constructor() {
+      this.x = 0;
+      this.y = 0;
+      this.image = null;
+    }
+
+    draw(context) {
+      context.drawImage(this.image, this.x, this.y);
+    }
+
+    move(x, y) {
+      this.x += x;
+      this.y += y;
+    }
+
+    getX() {
+      return this.x;
+    }
+    setX(x) { this.x = x }
+
+    getY() {
+      return this.y;
+    }
+    setY(y) { this.y = y }
+
+    getImage() {
+      return this.image;
+    }
+    setImage(image) { this.image = image }
+  }
+
+  class RedBullet extends Bullet {
+    draw(context) {
+      this.move(0, -20);
+      context.drawImage(this.image, this.x, this.y);
+    }
+  }
+
+  class LaserBullet extends Bullet {
+    draw(context) {
+      this.move(0, -20);
+      context.drawImage(this.image, this.x, this.y);
+    }
+  }
+
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext("2d");
+
+  const cWidth = 300;
+  const cHeight = 300;
+  let redFlyBulletType = 1;
+  let blueFlyBulletType = 2;
+
+  const redFly = new RedFly();
+  const redFlyImage = new Image();
+  redFlyImage.src = './images/red_fly.png';
+  redFly.setImage(redFlyImage);
+  redFlyImage.onload = () => {
+    redFly.setX(50);
+    redFly.setY(250);
+  };
+
+  let redBullet = null;
+  let redBulletImage = null;
+
+  function initRedBulletPosition(fly) {
+    redBullet.setX(fly.getX() + fly.getImage().width / 2 - redBullet.getImage().width / 2);
+    redBullet.setY(fly.getY());
+  }
+
+  function createRedBullet(fly) {
+    redBulletImage = new Image();
+    redBulletImage.src = './images/red_bullet.png';
+    redBullet = new RedBullet();
+    redBullet.setImage(redBulletImage);
+    redBulletImage.onload = () => {
+      initRedBulletPosition(fly);
+    }
+    fly.loadBullet(redBullet);
+  }
+
+  const blueFly = new RedFly();
+  const blueFlyImage = new Image();
+  blueFlyImage.src = './images/blue_fly.png';
+  blueFly.setImage(blueFlyImage);
+  blueFlyImage.onload = () => {
+    blueFly.setX(200);
+    blueFly.setY(250);
+  };
+
+  let blueBullet = null;
+  let blueBulletImage = null;
+
+  function initLaserBulletPosition(fly) {
+    blueBullet.setX(fly.getX() + fly.getImage().width / 2 - blueBullet.getImage().width / 2);
+    blueBullet.setY(fly.getY());
+  }
+
+  function createLaserBullet(fly) {
+    blueBulletImage = new Image();
+    blueBulletImage.src = './images/laser_bullet.png';
+    blueBullet = new LaserBullet();
+    blueBullet.setImage(blueBulletImage);
+    blueBulletImage.onload = () => {
+      initLaserBulletPosition(fly);
+    }
+    fly.loadBullet(blueBullet);
+  }
+
+  createRedBullet(blueFly);
+  createLaserBullet(redFly);
+
+  function redraw(context) {
+    context.fillRect(0, 0, cWidth, cHeight);
+    redFly.draw(context);
+    blueFly.draw(context);
+
+    if (redBullet.getY() <= 0) initRedBulletPosition(blueFly);
+
+    if (blueBullet.getY() <= 0) initLaserBulletPosition(redFly);
+  }
+
+  setInterval(
+    () => redraw(context),
+    200
+  )
+
+</script>
+
+</html>
