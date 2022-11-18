@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Memento 02</title>
+  <style>
+    #editor {
+      width: 500px;
+      height: 300px;
+      border: 1px solid #ccc;
+      text-align: left;
+      padding: 10px;
+    }
+
+    .button {
+      border: 1px solid #ccc;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="tool">
+    <input id="undo" type="button" value="Undo" class="button">
+    <input id="redo" type="button" value="Redo" class="button">
+  </div>
+  <div id="editor" contenteditable="true"></div>
+</body>
+
+<script type="module">
+  import { Stack, Originator } from './utils.js';
+  document.getElementById('undo').addEventListener('click', undoCommand);
+  document.getElementById('redo').addEventListener('click', redoCommand);
+
+  const stack = new Stack();
+  const originator = new Originator();
+
+  function undoCommand(event) {
+    if (stack.back() !== null)
+      document.getElementById('editor').innerHTML = stack.back().getState()
+  }
+
+  function redoCommand(event) {
+    if (stack.forward() !== null)
+      document.getElementById('editor').innerHTML = stack.forward().getState()
+  }
+
+  document.getElementById('editor').onkeyup = () => {
+    console.log('trigger');
+    originator.setState(document.getElementById('editor').innerHTML);
+    stack.push(originator.createMemento());
+  }
+</script>
+
+</html>

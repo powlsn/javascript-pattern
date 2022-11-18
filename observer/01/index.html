@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Observer 01</title>
+  <style>
+  </style>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Observable {
+    constructor() {
+      this.observerList = [];
+    }
+
+    notifyObservers() {
+      this.observerList.forEach(observer => observer.update());
+    }
+
+    addObserver(observer) {
+      this.observerList.push(observer);
+    }
+  }
+
+  class StockData extends Observable {
+    constructor(price) {
+      super();
+      this.price = price;
+    }
+
+    getPrice() {
+      return this.price;
+    }
+    setPrice(price) {
+      this.price = price;
+      this.notifyObservers()
+    }
+  }
+
+  class Observer {
+    constructor(observable) {
+      this.observable = observable;
+      this.observable.addObserver(this);
+    }
+    update(observable) { }
+  }
+
+  class Buyer extends Observer {
+    constructor(observable) {
+      super(observable);
+    }
+
+    update(observable) {
+      document.write(`Buyer Price: ${this.observable.getPrice()} <br>`);
+    }
+  }
+
+  class Seller extends Observer {
+    constructor(observable) {
+      super(observable);
+    }
+
+    update(observable) {
+      document.write(`Seller Price: ${this.observable.getPrice()} <br>`);
+    }
+  }
+
+  const data = new StockData(16.7);
+
+  const buyer = new Buyer(data);
+  const seller = new Seller(data);
+
+  data.setPrice(18.9);
+
+  document.write('<br> -------------- <br>');
+
+  data.setPrice(12.2);
+</script>
+
+</html>

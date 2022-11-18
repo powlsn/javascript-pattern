@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Observer 02</title>
+  <style>
+    #canvas {
+      border: 1px solid #c3c3c3;
+    }
+
+    .colorButton {
+      width: 50px;
+      height: 30px;
+      border: 0px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="500" height="200"></canvas>
+  <br>
+  <input class="colorButton" type="button" style="background-color: #00ff00;" onclick="changeColor('#00ff00')" />
+  <input class="colorButton" type="button" style="background-color: #ff0000;" onclick="changeColor('#ff0000')" />
+  <input class="colorButton" type="button" style="background-color: #0000ff;" onclick="changeColor('#0000ff')" />
+  <input class="colorButton" type="button" style="background-color: #000;" onclick="changeColor('#000000')" />
+  <input class="colorButton" type="button" style="background-color: #ccc;" onclick="changeColor('#cccccc')" />
+</body>
+
+<script type="text/javascript">
+  class Observable {
+    constructor() {
+      this.observerList = [];
+    }
+
+    notifyObservers() {
+      this.observerList.forEach(observer => observer.draw(context));
+    }
+
+    addObserver(observer) {
+      this.observerList.push(observer);
+    }
+  }
+
+  class Color extends Observable {
+    constructor(rgb) {
+      super();
+      this.rgb = rgb;
+    }
+
+    getRGB() {
+      return this.rgb;
+    }
+    setRGB(rgb) {
+      this.rgb = rgb;
+      this.notifyObservers()
+    }
+  }
+
+  class Observer {
+    constructor(observable) {
+      this.observable = observable;
+      this.observable.addObserver(this);
+    }
+    draw(observable) { }
+  }
+
+  class Histogram extends Observer {
+    constructor(x, y, width, height, observable) {
+      super(observable);
+      this.x = x;
+      this.y = y;
+      this.width = width;
+      this.height = height;
+    }
+
+    draw(context) {
+      context.fillStyle = this.observable.getRGB();
+      context.fillRect(this.x, this.y, this.width, this.height);
+    }
+  }
+
+  class Pie extends Observer {
+    constructor(x, y, r, observable) {
+      super(observable);
+      this.x = x;
+      this.y = y;
+      this.r = r;
+    }
+
+    draw(context) {
+      context.fillStyle = this.observable.getRGB();
+      context.beginPath();
+      context.arc(this.x, this.y, this.r, 0, 2 * Math.PI)
+      context.fill();
+    }
+  }
+
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext("2d");
+  const color = new Color('#000000');
+  const histogram = new Histogram(100, 50, 50, 100, color);
+  histogram.draw(context);
+  const pie = new Pie(300, 100, 50, color);
+  pie.draw(context);
+
+  function changeColor(rgb) {
+    color.setRGB(rgb);
+  }
+</script>
+
+
+</html>

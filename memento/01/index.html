@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Memento 01</title>
+  <style>
+  </style>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Memento {
+    constructor(state) {
+      this.state = state;
+    }
+    getState() {
+      return this.state;
+    }
+    setState(state) {
+      this.state = state;
+    }
+  }
+
+  class TextEdit {
+    constructor() {
+      this.mementos = [];
+      this.index = 0;
+    }
+
+    push(memento) {
+      this.mementos.push(memento);
+      this.index += 1;
+    }
+
+    forward() {
+      const memento = this.mementos[this.index];
+      this.index += 1;
+      return memento;
+    }
+
+    back() {
+      this.index -= 1;
+      return this.mementos[this.index];
+    }
+  }
+
+  class Originator {
+    constructor() {
+      this.state = ''
+    }
+
+    getState() {
+      return this.state;
+    }
+
+    setState(state) {
+      this.state = state;
+    }
+
+    createMemento() {
+      return new Memento(this.state);
+    }
+
+    setMemento(memento) {
+      this.state = memento.getState();
+    }
+
+    show() {
+      document.write(this.state);
+    }
+  }
+
+  const textEdit = new TextEdit();
+  const originator = new Originator();
+
+  originator.setState('Move you in the direction of your dream <br>');
+  textEdit.push(originator.createMemento());
+
+  originator.setState('Ways to start your day positively <br>');
+  textEdit.push(originator.createMemento());
+
+  originator.setState('Love can change the world <br>');
+  originator.show();
+
+  originator.setMemento(textEdit.back());
+  originator.show();
+
+  originator.setMemento(textEdit.back());
+  originator.show();
+
+  document.write('<br> ----------- <br>');
+
+  originator.setMemento(textEdit.forward());
+  originator.show();
+
+  originator.setMemento(textEdit.forward());
+  originator.show();
+</script>
+
+</html>

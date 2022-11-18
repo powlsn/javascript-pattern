@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Visitor 01</title>
+  <style>
+  </style>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Person {
+    constructor(name) {
+      this.name = name;
+    }
+
+    getName() {
+      return this.name;
+    }
+
+    setName(name) {
+      this.name = name
+    }
+
+    accept(visitor) { }
+  }
+
+  class Man extends Person {
+    constructor(name) {
+      super(name);
+    }
+
+    accept(visitor) {
+      visitor.visit(this);
+    }
+  }
+
+  class Woman extends Person {
+    constructor(name) {
+      super(name);
+    }
+
+    accept(visitor) {
+      visitor.visit(this);
+    }
+  }
+
+  class Visitor {
+    visit(person) { }
+  }
+
+  class Success extends Visitor {
+    constructor() {
+      super();
+    }
+
+    visit(person) {
+      document.write(person.getName() + " successfully <br>");
+    }
+  }
+
+  class Love extends Visitor {
+    constructor() {
+      super();
+    }
+
+    visit(person) {
+      document.write(person.getName() + " is in love <br>");
+    }
+  }
+
+  class ObjectStructure {
+    constructor() {
+      this.persons = [];
+    }
+
+    attach(person) {
+      this.persons.push(person);
+    }
+
+    display(visitor) {
+      this.persons.forEach(person => person.accept(visitor));
+    }
+  }
+
+  const objectStructure = new ObjectStructure();
+  objectStructure.attach(new Man('Hans'));
+  objectStructure.attach(new Woman('Fiona'));
+
+  objectStructure.display(new Success());
+  objectStructure.display(new Love());
+</script>
+
+</html>
