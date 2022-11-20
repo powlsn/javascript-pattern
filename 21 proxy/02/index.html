@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Proxy 02</title>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div id="image"></div>
+</body>
+
+<script type="text/javascript">
+  const Target = {
+    loadImage: (loadimg, source) => {
+      const img = document.createElement('img');
+      img.src = source;
+      img.onload = () => {
+        loadimg.src = img.src;
+      }
+    }
+  }
+
+  function Proxy() {
+    this.call = (target, method, imageSrc) => {
+      const img = document.createElement('img');
+      img.src = './images/loading.gif';
+      document.getElementById('image').appendChild(img);
+
+      const result = target[method](img, imageSrc);
+      return result;
+    }
+  }
+
+  const proxy = new Proxy();
+  proxy.call(Target, 'loadImage', './images/javascript.jpg');
+</script>
+
+</html>

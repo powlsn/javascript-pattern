@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Proxy 01</title>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  const Target = {
+    doSomething: () => document.write('Agency registration company')
+  }
+
+  function Proxy() {
+    this.call = (target, method) => {
+      document.write("<br> before <br>");
+      const result = target[method]();
+      document.write("<br> after <br>");
+      return result;
+    }
+  }
+
+  const proxy = new Proxy();
+  proxy.call(Target, 'doSomething');
+</script>
+
+</html>

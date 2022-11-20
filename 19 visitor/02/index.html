@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Visitor 02</title>
+  <style>
+    #accept {
+      width: 350px;
+      height: 150px;
+      border: 1px solid #ccc;
+      background-color: #fff0f3;
+      text-align: left;
+      padding: 20px;
+    }
+
+    #drag1 {
+      width: 300px;
+      height: 100px;
+      text-align: left;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="accept" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div id="visitor" draggable="true" ondragstart="drag(event)">
+    <ul>
+      <li>Easy Learning JavaScript</li>
+      <li>Easy Learning Python 3</li>
+      <li>Easy Learning Java</li>
+      <li>Easy Learning C#</li>
+    </ul>
+  </div>
+</body>
+
+<script type="text/javascript">
+  function allowDrop(event) {
+    event.preventDefault();
+  }
+
+  function drag(event) {
+    event.dataTransfer.setData('visitor_id', event.target.id);
+  }
+
+  function drop(event) {
+    event.preventDefault();
+    const visitor_id = event.dataTransfer.getData('visitor_id');
+    event.target.appendChild(document.getElementById(visitor_id));
+  }
+</script>
+
+</html>

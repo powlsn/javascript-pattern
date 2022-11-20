@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>State 01</title>
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+  class Flow {
+    action() { }
+  }
+
+  class ApplyFlow extends Flow {
+    constructor() {
+      super();
+    }
+
+    action() {
+      document.write('Apply -> ');
+    }
+  }
+
+  class VerifyFlow extends Flow {
+    constructor() {
+      super();
+    }
+
+    action() {
+      document.write('Verify -> ');
+    }
+  }
+
+  class ApproveFlow extends Flow {
+    constructor() {
+      super();
+    }
+
+    action() {
+      document.write('Approve');
+    }
+  }
+
+  class Context {
+    constructor() {
+      this.flow = null;
+    }
+
+    setFlow(flow) {
+      this.flow = flow;
+    }
+
+    process() {
+      this.flow.action();
+    }
+  }
+
+  const context = new Context();
+  context.setFlow(new ApplyFlow());
+  context.process();
+  context.setFlow(new VerifyFlow());
+  context.process();
+  context.setFlow(new ApproveFlow());
+  context.process();
+</script>
+
+</html>

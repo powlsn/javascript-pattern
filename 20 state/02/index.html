@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>State 02</title>
+  <style>
+    #news_table {
+      width: 550px;
+      border: 1px solid #ddd;
+      background-color: #eee;
+      font-size: 16px;
+    }
+
+    #title_tool {
+      background-color: #ddd;
+    }
+
+  </style>
+</head>
+
+<body>
+  <table id="news_table">
+    <tr id="title_tool">
+      <td>Title</td>
+      <td>Date</td>
+      <td>State</td>
+      <td>Action</td>
+    </tr>
+  </table>
+</body>
+
+<script type="text/javascript">
+  class Flow {
+    action() { }
+  }
+
+  class ViewFlow extends Flow {
+    constructor() {
+      super();
+    }
+
+    action() {
+      return "";
+    }
+  }
+
+  class EditFlow extends Flow {
+    constructor() {
+      super();
+    }
+
+    action() {
+      return '<input type="button" value="Update" />';
+    }
+  }
+
+  class VerifyFlow extends Flow {
+    constructor() {
+      super();
+    }
+
+    action() {
+      return '<input type="button" value="Update" /> <input type="button" value="Delete" />';
+    }
+  }
+
+  class Context {
+    constructor() {
+      this.flow = null;
+    }
+
+    setFlow(flow) {
+      this.flow = flow;
+    }
+
+    process() {
+      return this.flow.action();
+    }
+  }
+
+  const news_table = document.getElementById('news_table');
+
+  const newsArray = [
+    { "title": 'Happy Labor Day', 'date': '09.09.2021', 'state': 'view' },
+    { "title": 'New books releases', 'date': '12.03.2021', 'state': 'edit' },
+    { "title": 'X-Mas is comming', 'date': '06.09.2021', 'state': 'verify' },
+  ];
+
+  newsArray.forEach(item => {
+    const tr = news_table.insertRow();
+    const title = tr.insertCell();
+    const date = tr.insertCell();
+    const state = tr.insertCell();
+    const action = tr.insertCell();
+
+    title.innerHTML = item.title;
+    date.innerHTML = item.date;
+    state.innerHTML = item.state;
+
+    const context = new Context();
+
+    if (item.state === 'view')
+      context.setFlow(new ViewFlow());
+    else if (item.state === 'verify')
+      context.setFlow(new VerifyFlow());
+    else if (item.state === 'edit')
+      context.setFlow(new EditFlow());
+
+    action.innerHTML = context.process();
+  });
+</script>
+
+</html>
